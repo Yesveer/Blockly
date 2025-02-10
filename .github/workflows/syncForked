@@ -1,0 +1,35 @@
+name: Sync Fork with Upstream
+
+on:
+  repository_dispatch:
+    types:
+      - sync-upstream
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the forked repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.PAT }}
+
+      - name: Set Git Identity
+        run: |
+          git config --global user.name "Yesveer"
+          git config --global user.email "shivambhairav@gmail.com"
+
+      - name: Add Upstream Remote
+        run: git remote add upstream https://github.com/vsay-vsay/VSAY.git
+
+      - name: Fetch Upstream Changes
+        run: git fetch upstream
+
+      - name: Merge Upstream Changes into Fork
+        run: |
+          git checkout master # Replace 'main' with your branch name
+          git merge upstream/master --allow-unrelated-histories
+          git push origin master
+
+      - name: Clean Up
+        run: git remote remove upstream
