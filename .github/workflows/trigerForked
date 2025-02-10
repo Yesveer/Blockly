@@ -1,0 +1,20 @@
+name: Trigger Fork Sync
+
+on:
+  push:
+    branches:
+      - master # Replace 'main' with the branch you want to monitor
+
+jobs:
+  notify-fork:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify Fork
+        env:
+          FORK_PAT: ${{ secrets.FORK_PAT }}
+        run: |
+          curl -X POST \
+            -H "Authorization: token $FORK_PAT" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/Yesveer/Blockly/dispatches \
+            -d '{"event_type": "sync-upstream"}'
