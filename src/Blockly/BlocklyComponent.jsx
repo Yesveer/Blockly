@@ -65,16 +65,35 @@ function BlocklyComponent(props) {
 
   const runJavaScript = () => {
     try {
-      // Use eval for JavaScript execution (for demonstration purposes only)
-      const result = eval(code);
-      setOutput(
-        result !== undefined ? result.toString() : "Code executed successfully"
-      );
+      let capturedLogs = [];
+      
+      // Override console.log to capture the output
+      const originalLog = console.log;
+      console.log = (...args) => {
+        capturedLogs.push(args.join(" "));
+        originalLog.apply(console, args); // Keep the original log behavior
+      };
+  
+      // Execute the code
+      eval(code);
+  
+      // Show the captured logs in an alert
+      if (capturedLogs.length > 0) {
+        alert(capturedLogs.join("\n"));
+        setOutput(capturedLogs.join("\n"));
+      } else {
+        alert("Code executed successfully (No output).");
+        setOutput("Code executed successfully (No output).");
+      }
+  
+      // Restore console.log
+      console.log = originalLog;
     } catch (error) {
+      alert(`Error: ${error.message}`);
       setOutput(`Error: ${error.message}`);
     }
   };
-
+  
 
 
 // Python Code
@@ -148,14 +167,14 @@ function BlocklyComponent(props) {
         </button>
       </div>
 
-      <div className="output">
+      {/* <div className="output">
         <h3>Output</h3>
         <textarea
           value={output}
           readOnly
           style={{ width: "100%", height: "100px" }}
         />
-      </div>
+      </div> */}
     </React.Fragment>
   );
 }

@@ -33,6 +33,16 @@ const Home = () => {
               </div>
             </div>
             <div class="col-md-4">
+              <div onClick={() => navigate("/scratch")} class="option-card">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/1822/1822911.png"
+                  alt="Block Coding"
+                />
+                <h5>Block/Scratch Coding</h5>
+                <p>Code for games , video.</p>
+              </div>
+            </div>
+            {/* <div class="col-md-4">
               <div class="option-card">
                 <img
                   src="https://cdn-icons-png.flaticon.com/512/1822/1822911.png"
@@ -41,7 +51,7 @@ const Home = () => {
                 <h5>Arduino Coding</h5>
                 <p>Code for hardware and embedded systems.</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

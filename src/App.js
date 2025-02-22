@@ -397,6 +397,9 @@ import BlocklyComponent, {
 
 import "./blocks/customblocks";
 import "./generator/generator";
+import Scratch from "./page/Scratch";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
 
 function App() {
   const routes = createBrowserRouter([
@@ -414,6 +417,10 @@ function App() {
       element: <BlockCom ln={"python"} />,
     },
     {
+      path: "/scratch",
+      element: <Scratch />,
+    },
+    {
       path: "/**",
       element: (
         <div>
@@ -423,7 +430,11 @@ function App() {
     },
   ]);
 
-  return <RouterProvider router={routes} />;
+  return (
+    <Provider store={store}>
+      <RouterProvider router={routes} />;
+    </Provider>
+  );
 }
 
 export default App;
