@@ -32,7 +32,7 @@ function Scratch() {
           </a>
         </div>
       </div>
-      <div className="container">
+      <div className="containerp">
         <Sidebar />
         <Midbar />
         <Preview />
